@@ -7,6 +7,11 @@ try {
   ### ${core.getInput('subtitle')}
   `);
 
+  console.log(`## ${core.getInput('title')}
+
+  ### ${core.getInput('subtitle')}
+  `)
+
   core.setOutput("string", `## ${core.getInput('title')}
 
   ### ${core.getInput('subtitle')}
