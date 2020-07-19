@@ -1,13 +1,29 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  username:
+    description: 'Your GitHub username.'
     required: true
-    default: 'World'
+    default: ''
+  title:
+    description: 'The title of your README.md.'
+    required: false
+    default: 'hellotitle'
+  subtitle:
+    description: 'The subtitle of your README.md.'
+    required: false
+    default: 'hello'
+  footer:
+    description: 'The footer of your README.md.'
+    required: false
+    default: ''
+  path:
+    description: 'Path of your README.md file.'
+    required: false
+    default: './README.md'
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  string:
+    description: 'The markdown string.'
 runs:
   using: 'node12'
   main: 'index.js'
