@@ -33,21 +33,22 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     const data = `
 ## ${core.getInput('title')}
 
-### ${core.getInput('subtitle')}
+${core.getInput('subtitle')}
 
 ---
 
 ||||
 | :-: | :-: | :-: |
 ${chunkArray(Array.from(recentRepos), 3).map((value) => {
-  return `| ${value.map(value => ` **${value}** |`)}\n`
+  return `| ${value.map(value => ` **[${value}](https://github.com${value})** |`)}
+  | ${value.map(value => ` **[${value}](https://github.com${value})** |`)}\n`
 }).toString().replace(/,/g, "")}
 
 ---
 
 [//]: # (BREAK)
 
-${core.getInput('footer')}
+**${core.getInput('footer')}**
 `
     console.log("chunky", )
     
