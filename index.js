@@ -16,9 +16,6 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     })
     const sha = getReadme.data.sha
 
-    // const currentContent = Buffer.from(getReadme.data.content, "base64").toString('utf8')
-    // const projectsContent = currentContent.split("---\n")[1].split("\n")
-
     let recentRepos = new Set()
     for (let i = 0; recentRepos.size < POST_COUNT && i < 10; i++) {
       const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
@@ -29,7 +26,6 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         if (recentRepos.size >= POST_COUNT) break
       }
     }
-    const array = Array.from(recentRepos)
 
     // DO NOT FORMAT `data` BELOW.
     const data = `
@@ -55,7 +51,7 @@ ${chunkArray(Array.from(recentRepos), POST_PER_ROW).map((value) => {
 **${core.getInput('footer')}**
 `
 
-    const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+    await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
       repo: repo,
       path: core.getInput('path'),
