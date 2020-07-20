@@ -42,7 +42,7 @@ ${core.getInput('footer')}
       const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
         username: username,
       })
-      for (value in getActivity.data) {
+      for (value of getActivity.data) {
         recentRepos.add(value.repo.name)
         if (recentRepos.size >= postCount) break
       }
