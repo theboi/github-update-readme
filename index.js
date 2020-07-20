@@ -16,7 +16,7 @@ try {
 
   console.log(data)
   console.log("Username2 ", username)
-  console.log("Repo2 ", repo)
+  console.log("Sha ", sha)
 
   octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
     owner: username,
@@ -25,6 +25,10 @@ try {
     message: '(Automated) Update README.md',
     content: "Hi",
     sha: sha,
+    committer: {
+      name: "Ryan The",
+      email: "ryan.the.2006@gmail.com"
+    }
   }).then(response => {
     console.log("RESPONSE: ", response)
   }).catch(e => {
