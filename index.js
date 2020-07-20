@@ -27,7 +27,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       repo: repo,
       path: core.getInput('path'),
       message: '(Automated) Update README.md',
-      content: "Hi",
+      content: btoa("hi"),
       sha: sha,
       committer: {
         name: "Ryan The",
