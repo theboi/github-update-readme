@@ -35,7 +35,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         repo: value.split("/")[1],
         path: "DISPLAY.jpg"
       }).catch(() => false
-      ).then(() => false)
+      ).then(() => true)
     })
 
     // DO NOT FORMAT `data` BELOW.
@@ -52,6 +52,7 @@ ${chunkArray(Array.from(recentRepos), POST_PER_ROW).map((value, row) => {
       return `| ${value.map(value => ` **[${value}](https://github.com/${value})** |`)}
   | ${value.map((value, col) => {
         const source = isDisplayImageAvailable[row * POST_PER_ROW + col] ? value : `${username}/${repo}`
+        console.log("source ", source)
         return ` <a href="https://github.com/${source}"><img src="https://github.com/${source}/raw/master/DISPLAY.jpg" alt="${value}" title="Cover Image" width="150" height="150"></a> |`
       })}\n`
     }).toString().replace(/,/g, "")}
