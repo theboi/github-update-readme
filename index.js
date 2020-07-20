@@ -40,7 +40,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 ||||
 | :-: | :-: | :-: |
 ${chunkArray(Array.from(recentRepos), 3).map((value) => {
-      return `${value.map(() => `| ${recentRepos.map(value => ` **${value}** |`)}`)}\n`
+      return `| ${value.map(value => ` **${value}** |`)}\n`
     })}
 
 ---
