@@ -39,8 +39,8 @@ ${core.getInput('subtitle')}
 
 ||||
 | :-: | :-: | :-: |
-${chunkArray(Array.from(recentRepos), 3).map((value) => {
-      return `| ${value.map(value => ` **[${value}](https://github.com/${value})** |`)}
+${chunkArray(Array.from(recentRepos), 3).map(async (value) => {
+      return `| ${value.map(async value => ` **[${value}](https://github.com/${value})** |`)}
   | ${value.map(async (value) => {
         const image = await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
           owner: username,
