@@ -31,12 +31,12 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     }
     const array = Array.from(recentRepos)
     const isDisplayImageAvailable = array.map(async (value) => {
-      const image = await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
+      let temp = await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
         owner: value.split("/")[0],
         repo: value.split("/")[1],
-        path: "DISLAY.jpg"
-      }).catch(() => "hi")
-      return image
+        path: "DIPLAY.jpg"
+      }).catch(() => "")
+      console.log(temp)
     })
 
     // DO NOT FORMAT `data` BELOW.
@@ -52,8 +52,8 @@ ${core.getInput('subtitle')}
 ${chunkArray(Array.from(recentRepos), POST_PER_ROW).map((value, row) => {
       return `| ${value.map(value => ` **[${value}](https://github.com/${value})** |`)}
   | ${value.map((value, col) => {
-        const source = !isDisplayImageAvailable[row * POST_PER_ROW + col] ? `${username}/${repo}` : value
-        console.log("s ", isDisplayImageAvailable)
+        const source = isDisplayImageAvailable[row * POST_PER_ROW + col] ? `${username}/${repo}` : value
+        console.log("succc ", isDisplayImageAvailable)
         return ` <a href="https://github.com/${source}"><img src="https://github.com/${source}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
       })}\n`
     }).toString().replace(/,/g, "")}
