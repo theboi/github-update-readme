@@ -39,7 +39,7 @@ ${core.getInput('footer')}
     const getActivity = await octokit.request('GET /users/{username}/events', {
       username: username,
     })
-    const recentRepos = getActivity.map(value => value.data.repo)
+    const recentRepos = getActivity.data.map(value => value.repo)
     console.log('recentRepos', recentRepos);
 
     console.log('getActivity', getActivity)
