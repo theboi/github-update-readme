@@ -5,25 +5,6 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 (async () => {
   try {
-    // DO NOT FORMAT `data` BELOW.
-    const data =
-      `## ${core.getInput('title')}
-
-### ${core.getInput('subtitle')}
-
----
-
-| visual-algo |
-| :-: |
-| image |
-
----
-
-[//]: # (BREAK)
-
-${core.getInput('footer')}
-
-`
     const postCount = 6
     const username = process.env.GITHUB_REPOSITORY.split("/")[0]
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
@@ -33,9 +14,9 @@ ${core.getInput('footer')}
       path: core.getInput('path'),
     })
     const sha = getReadme.data.sha
-    const currentContent = Buffer.from(getReadme.data.content, "base64").toString('utf8')
 
-    const projectsContent = currentContent.split("---\n")[1].split("\n")
+    // const currentContent = Buffer.from(getReadme.data.content, "base64").toString('utf8')
+    // const projectsContent = currentContent.split("---\n")[1].split("\n")
 
     let recentRepos = new Set()
     for (let i = 0; recentRepos.size < postCount && i < 10; i++) {
@@ -48,7 +29,26 @@ ${core.getInput('footer')}
       }
     }
 
-    console.log('FINALrecentRepos', recentRepos);
+    // DO NOT FORMAT `data` BELOW.
+    const data = `
+## ${core.getInput('title')}
+
+### ${core.getInput('subtitle')}
+
+---
+
+||||
+| :-: | :-: | :-: |
+${chunkArray(recentRepos, 3).map((value) => {
+      return `${value.map(() => `| ${recentRepos.map(value => ` **${value}** |`)}`)}\n`
+    })}
+
+---
+
+[//]: # (BREAK)
+
+${core.getInput('footer')}
+`
 
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
@@ -69,3 +69,13 @@ ${core.getInput('footer')}
     core.setFailed(e.message)
   }
 })()
+
+const chunkArray = (array, size) => {
+  let chunked = []
+  let index = 0
+  while (index < array.length) {
+    chunked.push(array.slice(index, size + index))
+    index += size
+  }
+  return chunked
+}
