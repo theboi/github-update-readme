@@ -5,12 +5,13 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 (async () => {
   try {
-    const data = `
-  ## ${core.getInput('title')}
-    
-  ### ${core.getInput('subtitle')}
-  `
-  '/users/{user}/events';
+    // DO NOT FORMAT `data` BELOW.
+    const data =
+      `## ${core.getInput('title')}
+
+### ${core.getInput('subtitle')}`
+
+    '/users/{user}/events';
     const username = process.env.GITHUB_REPOSITORY.split("/")[0]
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
     const getReadme = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
@@ -19,11 +20,11 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       path: core.getInput('path'),
     })
     const sha = getReadme.data.sha
-    const content = getReadme.data.content
+    const content = Buffer.from(getReadme.data.content).toString('utf8')
 
     console.log("Sha ", sha)
     console.log("Content ", content)
-  
+
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
       repo: repo,
