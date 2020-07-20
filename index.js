@@ -36,7 +36,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         owner: value.split("/")[0],
         repo: value.split("/")[1],
         path: "DIPLAY.jpg"
-      })
+      }).catch(() => "")
       console.log(temp)
       return isAvailable
     })
