@@ -24,6 +24,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 ${core.getInput('footer')}
 
 `
+    const postCount = 5
     const username = process.env.GITHUB_REPOSITORY.split("/")[0]
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
     const getReadme = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
@@ -36,10 +37,21 @@ ${core.getInput('footer')}
 
     const projectsContent = currentContent.split("---\n")[1].split("\n")
 
-    const getActivity = await octokit.request('GET /users/{username}/events', {
-      username: username,
-    })
-    const recentRepos = getActivity.data.map(value => value.repo)
+    let recentRepos = new Set()
+    for (let i=0; recentRepos.size < postCount; i++) {
+      const getActivity = await octokit.request(`GET /users/{username}/events?${i}`, {
+        username: username,
+      })
+      getActivity.data.forEach(value => {
+        if (recentRepos.size >= postCount) return
+        if (!recentRepos.has(value)) {
+          recentRepos.add(value)
+        }
+      })
+    }
+
+    console.log(recentRepos)
+
     console.log('recentRepos', recentRepos);
 
     console.log('getActivity', getActivity)
