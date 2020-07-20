@@ -29,21 +29,14 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         if (recentRepos.size >= POST_COUNT) break
       }
     }
-    const isDisplayImageAvailable = Array.from(recentRepos).map((value) => {
+    const isDisplayImageAvailable = Array.from(recentRepos).map(async (value) => {
       let isAvailable = true
-      octokit.request('/repos/{owner}/{repo}/contents/{path}', {
+      await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
         owner: value.split("/")[0],
         repo: value.split("/")[1],
         path: "DISPLAY.jpg"
-      })
-        .then(() => {
-          console.log("Truetrue")
-          isAvailable = true
-        })
-        .catch(() => {
-          console.log("Falsefalse")
-          isAvailable = false
-        })
+      }).then(() => { isAvailable = true })
+        .catch(() => { isAvailable = false })
       return isAvailable
     })
 
