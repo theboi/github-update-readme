@@ -1,22 +1,31 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
+const axios = require('axios');
 
 try {
-  core.debug(`## ${core.getInput('title')}
+  const data = `
+## ${core.getInput('title')}
+  
+### ${core.getInput('subtitle')}
+`
 
-  ### ${core.getInput('subtitle')}
-  `);
+  console.log(data)
+  console.log("Username ", core.getInput('username'))
+  console.log("Repo ", process.env.GITHUB_REPOSITORY)
 
-  console.log(`## ${core.getInput('title')}
+  await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+    owner: core.getInput('username'),
+    repo: process.env.GITHUB_REPOSITORY,
+    path: core.getInput('path'),
+    message: '(Automated) Update README.md',
+    content: data,
+    committer: {
+      name: core.getInput('username'),
+      email: ''
+    }
+  })
 
-  ### ${core.getInput('subtitle')}
-  `)
-
-  core.setOutput("string", `## ${core.getInput('title')}
-
-  ### ${core.getInput('subtitle')}
-  `);
-} catch(e) {
+} catch (e) {
   console.error(e)
   core.setFailed(e.message)
 }
