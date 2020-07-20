@@ -37,8 +37,8 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       })
       .then(() => true)
       .catch(() => false) 
+      console.log("temp ", temp)
     })
-    console.log("temp ", temp)
 
     // DO NOT FORMAT `data` BELOW.
     const data = `
