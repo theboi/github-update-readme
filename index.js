@@ -38,7 +38,7 @@ ${core.getInput('footer')}
     const projectsContent = currentContent.split("---\n")[1].split("\n")
 
     let recentRepos = new Set()
-    for (let i=0; recentRepos.size < postCount; i++) {
+    for (let i=0; recentRepos.size < postCount && i < 10; i++) {
       const getActivity = await octokit.request(`GET /users/{username}/events?${i}`, {
         username: username,
       })
@@ -51,7 +51,7 @@ ${core.getInput('footer')}
       console.log('recentRepos', recentRepos);
     }
 
-    console.log('recentRepos', recentRepos);
+    console.log('FINALrecentRepos', recentRepos);
 
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
