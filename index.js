@@ -34,8 +34,9 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         owner: value.split("/")[0],
         repo: value.split("/")[1],
         path: "DISPLAY.jpg"
-      }).catch(() => false
-      ).then(() => true)
+      })
+      .then(() => true)
+      .catch(() => false)
     })
 
     // DO NOT FORMAT `data` BELOW.
@@ -76,7 +77,6 @@ ${chunkArray(Array.from(recentRepos), POST_PER_ROW).map((value, row) => {
         email: "ryan.the.2006@gmail.com"
       }
     })
-    console.log("RESPONSE: ", putReadme)
 
   } catch (e) {
     console.error(e)
