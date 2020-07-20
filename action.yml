@@ -16,7 +16,7 @@ inputs:
   path:
     description: 'Path of your README.md file.'
     required: false
-    default: './README.md'
+    default: 'README.md'
 outputs:
   string:
     description: 'The markdown string.'
