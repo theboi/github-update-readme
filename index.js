@@ -20,17 +20,18 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       path: core.getInput('path'),
     })
     const sha = getReadme.data.sha
-    const content = Buffer.from(getReadme.data.content).toString('utf8')
+    const content = Buffer.from(getReadme.data.content, "base64").toString('utf8')
 
     console.log("Sha ", sha)
-    console.log("Content ", content)
+    console.log("Contentbase64 ", getReadme.data.content)
+    console.log("ContentUTF8 ", content)
 
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
       repo: repo,
       path: core.getInput('path'),
       message: '(Automated) Update README.md',
-      content: Buffer.from(data).toString('base64'),
+      content: Buffer.from(data, "utf8").toString('base64'),
       sha: sha,
       committer: {
         name: "Ryan The",
