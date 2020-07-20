@@ -45,7 +45,7 @@ ${chunkArray(Array.from(recentRepos), 3).map(async (value) => {
         const image = await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
           owner: username,
           repo: repo,
-          path: "DISPLAY.jpg"
+          path: "doesnotexist.jpg"
         })
         console.log(image)
 
