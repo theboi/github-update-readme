@@ -38,7 +38,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       .then(() => true)
       .catch(() => false)
       console.log("temp ", temp)
-      console.log("awaittemp ", await temp)
+      // console.log("awaittemp ", await temp)
       return temp
     })
 
