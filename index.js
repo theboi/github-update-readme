@@ -23,12 +23,12 @@ try {
     repo: repo,
     path: core.getInput('path'),
     message: '(Automated) Update README.md',
-    content: data,
+    content: "Hi",
     sha: sha,
   }).then(response => {
-    console.log("res ", response)
+    console.log("RESPONSE: ", response)
   }).catch(e => {
-    console.error(e)
+    console.error("ERROR: ", e)
   })
 
 } catch (e) {
