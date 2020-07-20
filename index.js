@@ -10,7 +10,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     
   ### ${core.getInput('subtitle')}
   `
-  
+  '/users/{user}/events';
     const username = process.env.GITHUB_REPOSITORY.split("/")[0]
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
     const getReadme = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
@@ -19,15 +19,17 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       path: core.getInput('path'),
     })
     const sha = getReadme.data.sha
+    const content = getReadme.data.content
 
     console.log("Sha ", sha)
+    console.log("Content ", content)
   
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
       repo: repo,
       path: core.getInput('path'),
       message: '(Automated) Update README.md',
-      content: new Buffer("hi").toString('base64'),
+      content: Buffer.from(data).toString('base64'),
       sha: sha,
       committer: {
         name: "Ryan The",
