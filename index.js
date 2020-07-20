@@ -41,7 +41,7 @@ ${core.getInput('subtitle')}
 | :-: | :-: | :-: |
 ${chunkArray(Array.from(recentRepos), 3).map((value) => {
   return `| ${value.map(value => ` **[${value}](https://github.com/${value})** |`)}
-  | ${value.map(value => ` <img src="https://github.com/${value}/raw/master/COVER.jpg" alt="${value} Cover Image" width="150" height="150"> |`)}\n`
+  | ${value.map(value => ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/COVER.jpg" alt="${value} Cover Image" width="150" height="150"></a> |`)}\n`
 }).toString().replace(/,/g, "")}
 
 ---
