@@ -49,7 +49,7 @@ ${chunkArray(recentRepos, 3).map((value) => {
 
 ${core.getInput('footer')}
 `
-
+    console.log("chunky", chunkArray(recentRepos, 3))
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
       repo: repo,

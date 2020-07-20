@@ -21,3 +21,5 @@ The time we greeted you.
 uses: actions/hello-world-javascript-action@v1
 with:
   who-to-greet: 'Mona the Octocat'
+
+Note: Due to GitHub's API rate-limiting, this GitHub Action will, at most, only check your 1000 most recent activities.
