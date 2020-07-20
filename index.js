@@ -44,17 +44,13 @@ ${core.getInput('footer')}
       })
       getActivity.data.forEach(value => {
         if (recentRepos.size >= postCount) return
-        if (!recentRepos.has(value)) {
-          recentRepos.add(value)
+        if (!recentRepos.has(value.name)) {
+          recentRepos.add(value.name)
         }
       })
     }
 
-    console.log(recentRepos)
-
     console.log('recentRepos', recentRepos);
-
-    console.log('getActivity', getActivity)
 
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
