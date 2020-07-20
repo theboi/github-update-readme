@@ -31,7 +31,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     }
     const array = Array.from(recentRepos)
     const isDisplayImageAvailable = array.map((value) => {
-      await (async () => {
+      (async () => {
         let isAvailable = true
         await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
           owner: value.split("/")[0],
