@@ -36,9 +36,14 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         repo: value.split("/")[1],
         path: "DISPLAY.jpg"
       })
-        .then(() => { isAvailable = true })
-        .catch(() => { isAvailable = false })
-      // console.log("temp ", isAvailable)
+        .then(() => {
+          console.log("Truetrue")
+          isAvailable = true
+        })
+        .catch(() => {
+          console.log("Falsefalse")
+          isAvailable = false
+        })
       return isAvailable
     })
 
