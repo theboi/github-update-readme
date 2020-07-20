@@ -34,14 +34,13 @@ ${core.getInput('footer')}
     const sha = getReadme.data.sha
     const currentContent = Buffer.from(getReadme.data.content, "base64").toString('utf8')
 
-    const newContent = currentContent.split("---\n")[1]
-
-    console.log("currentContent ", currentContent)
-    console.log("newContent ", newContent)
+    const projectsContent = currentContent.split("---\n")[1].split("\n")
 
     const getActivity = await octokit.request('GET /users/{username}/events', {
       username: username,
     })
+    const recentRepos = getActivity.map(value => value.data.repo)
+    console.log('recentRepos', recentRepos);
 
     console.log('getActivity', getActivity)
 
