@@ -42,13 +42,14 @@ ${core.getInput('subtitle')}
 ${chunkArray(Array.from(recentRepos), 3).map(async (value) => {
       return `| ${value.map(async value => ` **[${value}](https://github.com/${value})** |`)}
   | ${value.map(async (value) => {
-        const image = await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
-          owner: username,
-          repo: repo,
-          path: "doesnotexist.jpg"
+        await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
+          owner: value.split("/")[0],
+          repo: value.split("/")[1],
+          path: "DISPLAY.jpg"
+        }).catch((e) => {
+          console.log("ERROR: ", e)
+          return ` <a href="https://github.com/${value}"><img src="https://github.com/${repo}/raw/master/DISPLAY.jpg" alt="${value}" title="Cover Image" width="150" height="150"></a> |`
         })
-        console.log(image)
-
         return ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="Cover Image" width="150" height="150"></a> |`
       })}\n`
     }).toString().replace(/,/g, "")}
