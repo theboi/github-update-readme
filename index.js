@@ -12,6 +12,7 @@ try {
 
   const username = process.env.GITHUB_REPOSITORY.split("/")[0]
   const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
+  const sha = process.env.GITHUB_SHA
 
   console.log(data)
   console.log("Username2 ", username)
@@ -23,12 +24,11 @@ try {
     path: core.getInput('path'),
     message: '(Automated) Update README.md',
     content: data,
-    committer: {
-      name: core.getInput('username'),
-      email: ''
-    }
+    sha: sha,
   }).then(response => {
     console.log("res ", response)
+  }).catch(e => {
+    console.error(e)
   })
 
 } catch (e) {
