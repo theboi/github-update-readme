@@ -39,7 +39,7 @@ ${core.getInput('footer')}
 
     let recentRepos = new Set()
     for (let i = 0; recentRepos.size-1 < postCount && i < 10; i++) {
-      const getActivity = await octokit.request(`GET /users/{username}/events?${i}`, {
+      const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
         username: username,
       })
       getActivity.data.forEach(value => {
