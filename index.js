@@ -38,15 +38,14 @@ ${core.getInput('footer')}
     const projectsContent = currentContent.split("---\n")[1].split("\n")
 
     let recentRepos = new Set()
-    for (let i=0; recentRepos.size < postCount && i < 10; i++) {
+    for (let i = 0; recentRepos.size < postCount && i < 10; i++) {
       const getActivity = await octokit.request(`GET /users/{username}/events?${i}`, {
         username: username,
       })
       getActivity.data.forEach(value => {
+        console.log(value.repo.name)
+        recentRepos.add(value.repo.name)
         if (recentRepos.size >= postCount) return
-        if (!recentRepos.has(value.name)) {
-          recentRepos.add(value.name)
-        }
       })
       console.log('recentRepos', recentRepos);
     }
