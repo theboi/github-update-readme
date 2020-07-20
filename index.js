@@ -35,7 +35,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       let temp = await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
         owner: value.split("/")[0],
         repo: value.split("/")[1],
-        path: "DISPLAY.jpg"
+        path: "DIPLAY.jpg"
       })
       console.log(temp)
       return isAvailable
