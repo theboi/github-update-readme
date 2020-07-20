@@ -29,8 +29,8 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         if (recentRepos.size >= POST_COUNT) break
       }
     }
-    const isDisplayImageAvailable = await Array.from(recentRepos).map(async (value) => {
-      return await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
+    const isDisplayImageAvailable = Array.from(recentRepos).map((value) => {
+      return octokit.request('/repos/{owner}/{repo}/contents/{path}', {
         owner: value.split("/")[0],
         repo: value.split("/")[1],
         path: "DISPLAY.jpg"
