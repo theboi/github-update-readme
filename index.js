@@ -13,6 +13,9 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 ---
 
+| visual-algo |
+| :-: |
+| image |
 
 ---
 
@@ -21,22 +24,27 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 ${core.getInput('footer')}
 
 `
-
-    '/users/{user}/events';
-    const username = process.env.GITHUB_REPOSITORY.split("/")[0]
-    const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
     const getReadme = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
       repo: repo,
       path: core.getInput('path'),
     })
+    const username = process.env.GITHUB_REPOSITORY.split("/")[0]
+    const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
+    
     const sha = getReadme.data.sha
     const currentContent = Buffer.from(getReadme.data.content, "base64").toString('utf8')
 
-    const newContent = currentContent.split("---")
+    const newContent = currentContent.split("---\n")[1]
 
     console.log("currentContent ", currentContent)
     console.log("newContent ", newContent)
+    
+    const getActivity = await octokit.request('GET /users/{username}/events', {
+      username: username,
+    })
+
+    console.log('getActivity', getActivity)
 
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
