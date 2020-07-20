@@ -31,11 +31,12 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     }
     const array = Array.from(recentRepos)
     const isDisplayImageAvailable = array.map(async (value) => {
-      return await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
+      const image = await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
         owner: value.split("/")[0],
         repo: value.split("/")[1],
         path: "DISPLAY.jpg"
       }).catch(() => "")
+      return image
     })
 
     // DO NOT FORMAT `data` BELOW.
