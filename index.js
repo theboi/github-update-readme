@@ -40,7 +40,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       .catch(() => isAvailable = false)
       // console.log("temp ", temp)
       // console.log("awaittemp ", await temp)
-      return temp
+      return isAvailable
     })
 
     // DO NOT FORMAT `data` BELOW.
