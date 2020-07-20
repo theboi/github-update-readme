@@ -40,7 +40,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 ||||
 | :-: | :-: | :-: |
 ${chunkArray(Array.from(recentRepos), 3).map((value) => {
-      return `| ${value.map(value => GET /users/{username}/events)}\n`
+      return `| ${value.map(value => ` **${value}** |`)}\n`
     })}
 
 ---
@@ -50,8 +50,9 @@ ${chunkArray(Array.from(recentRepos), 3).map((value) => {
 ${core.getInput('footer')}
 `
     console.log("chunky", chunkArray(Array.from(recentRepos), 3).map((value) => {
-      return `| ${value.map(value => GET /users/{username}/events)}\n`
+      return `| ${value.map(value => ` **${value}** |`)}\n`
     }))
+    
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
       repo: repo,
