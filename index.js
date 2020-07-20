@@ -48,6 +48,7 @@ ${core.getInput('footer')}
           recentRepos.add(value.name)
         }
       })
+      console.log('recentRepos', recentRepos);
     }
 
     console.log('recentRepos', recentRepos);
