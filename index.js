@@ -30,17 +30,15 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       }
     }
     const array = Array.from(recentRepos)
-    const isDisplayImageAvailable = array.map((value) => {
-      (async () => {
-        let isAvailable = true
-        await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
-          owner: value.split("/")[0],
-          repo: value.split("/")[1],
-          path: "DISPLAY.jpg"
-        }).then(() => { isAvailable = true })
-          .catch(() => { isAvailable = false })
-        return isAvailable
-      })()
+    const isDisplayImageAvailable = array.map(async (value) => {
+      let isAvailable = true
+      await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
+        owner: value.split("/")[0],
+        repo: value.split("/")[1],
+        path: "DISPLAY.jpg"
+      }).then(() => { isAvailable = true })
+        .catch(() => { isAvailable = false })
+      return isAvailable
     })
 
     // DO NOT FORMAT `data` BELOW.
