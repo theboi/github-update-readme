@@ -34,8 +34,8 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       const image = await octokit.request('/repos/{owner}/{repo}/contents/{path}', {
         owner: value.split("/")[0],
         repo: value.split("/")[1],
-        path: "DISPLAY.jpg"
-      })
+        path: "DISLAY.jpg"
+      }).catch(() => "hi")
       return image
     })
 
