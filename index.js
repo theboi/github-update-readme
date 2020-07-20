@@ -49,7 +49,7 @@ ${chunkArray(Array.from(recentRepos), 3).map((value) => {
 
 ${core.getInput('footer')}
 `
-    console.log("chunky", chunkArray(recentRepos, 3))
+    console.log("chunky", chunkArray(Array.from(recentRepos), 3))
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
       repo: repo,
@@ -71,13 +71,11 @@ ${core.getInput('footer')}
 })()
 
 const chunkArray = (array, size) => {
-  console.log("input", array)
   let chunked = []
   let index = 0
   while (index < array.length) {
     chunked.push(array.slice(index, size + index))
     index += size
-    console.log("procchunk", chunked)
   }
   return chunked
 }
