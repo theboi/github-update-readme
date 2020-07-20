@@ -30,16 +30,15 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       }
     }
     const isDisplayImageAvailable = Array.from(recentRepos).map((value) => {
-      let isAvailable = false
+      let isAvailable = true
       octokit.request('/repos/{owner}/{repo}/contents/{path}', {
         owner: value.split("/")[0],
         repo: value.split("/")[1],
         path: "DISPLAY.jpg"
       })
-      .then(() => isAvailable = true)
-      .catch(() => isAvailable = false)
-      // console.log("temp ", temp)
-      // console.log("awaittemp ", await temp)
+        .then(() => { isAvailable = true })
+        .catch(() => { isAvailable = false })
+      // console.log("temp ", isAvailable)
       return isAvailable
     })
 
@@ -57,7 +56,7 @@ ${chunkArray(Array.from(recentRepos), POST_PER_ROW).map((value, row) => {
       return `| ${value.map(value => ` **[${value}](https://github.com/${value})** |`)}
   | ${value.map((value, col) => {
         const source = isDisplayImageAvailable[row * POST_PER_ROW + col] ? `${username}/${repo}` : value
-        console.log("suce ", isDisplayImageAvailable)
+        console.log("sue ", isDisplayImageAvailable)
         return ` <a href="https://github.com/${source}"><img src="https://github.com/${source}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
       })}\n`
     }).toString().replace(/,/g, "")}
