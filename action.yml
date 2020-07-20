@@ -3,12 +3,12 @@ description: 'Greet someone and record the time'
 inputs:
   title:
     description: 'The title of your README.md.'
-    required: false
-    default: 'hellotitle'
+    required: true
+    default: ''
   subtitle:
     description: 'The subtitle of your README.md.'
     required: false
-    default: 'hello'
+    default: ''
   footer:
     description: 'The footer of your README.md.'
     required: false
@@ -17,6 +17,15 @@ inputs:
     description: 'Path of your README.md file.'
     required: false
     default: 'README.md'
+  postCount:
+    description: 'Number of repositories to load.'
+    required: false
+    default: '6'
+  postsPerRow:
+    description: 'Number of repositories to load per row.'
+    required: false
+    default: '3'
+  
 outputs:
   string:
     description: 'The markdown string.'

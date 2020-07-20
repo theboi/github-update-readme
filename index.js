@@ -5,8 +5,8 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 (async () => {
   try {
-    const POST_COUNT = 6
-    const POST_PER_ROW = 3
+    const postCount = parseInt(core.getInput('postCount'))
+    const postPerRow = parseInt(core.getInput('postsPerRow'))
     const username = process.env.GITHUB_REPOSITORY.split("/")[0]
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
     const getReadme = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
@@ -17,13 +17,13 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     const sha = getReadme.data.sha
 
     let recentRepos = new Set()
-    for (let i = 0; recentRepos.size < POST_COUNT && i < 10; i++) {
+    for (let i = 0; recentRepos.size < postCount && i < 10; i++) {
       const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
         username: username,
       })
       for (const value of getActivity.data) {
         recentRepos.add(value.repo.name)
-        if (recentRepos.size >= POST_COUNT) break
+        if (recentRepos.size >= postCount) break
       }
     }
 
@@ -37,7 +37,7 @@ ${core.getInput('subtitle')}
 
 ||||
 | :-: | :-: | :-: |
-${chunkArray(Array.from(recentRepos), POST_PER_ROW).map((value) => {
+${chunkArray(Array.from(recentRepos), postPerRow).map((value) => {
       return `| ${value.map(value => ` **[${value}](https://github.com/${value})** |`)}
   | ${value.map((value) => {
         return ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
@@ -48,7 +48,7 @@ ${chunkArray(Array.from(recentRepos), POST_PER_ROW).map((value) => {
 
 [//]: # (BREAK)
 
-**${core.getInput('footer')}**
+${core.getInput('footer')}
 `
 
     await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
