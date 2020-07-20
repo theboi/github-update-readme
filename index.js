@@ -39,7 +39,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 ||||
 | :-: | :-: | :-: |
-${chunkArray(recentRepos, 3).map((value) => {
+${chunkArray(Array.from(recentRepos), 3).map((value) => {
       return `${value.map(() => `| ${recentRepos.map(value => ` **${value}** |`)}`)}\n`
     })}
 
@@ -71,11 +71,13 @@ ${core.getInput('footer')}
 })()
 
 const chunkArray = (array, size) => {
+  console.log("input", array)
   let chunked = []
   let index = 0
   while (index < array.length) {
     chunked.push(array.slice(index, size + index))
     index += size
+    console.log("procchunk", chunked)
   }
   return chunked
 }
