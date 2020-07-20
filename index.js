@@ -35,7 +35,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         repo: value.split("/")[1],
         path: "DISPLAY.jpg"
       }).catch(() => false
-      ).then(() => true)
+      ).then(() => false)
     })
 
     // DO NOT FORMAT `data` BELOW.
