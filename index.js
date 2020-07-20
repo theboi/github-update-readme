@@ -1,6 +1,6 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
-const octokit = require('@octokit/core')
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 try {
   const data = `
@@ -9,13 +9,16 @@ try {
 ### ${core.getInput('subtitle')}
 `
 
+  const username = process.env.GITHUB_REPOSITORY.split("/")[0]
+  const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
+
   console.log(data)
-  console.log("Username ", core.getInput('username'))
-  console.log("Repo ", process.env.GITHUB_REPOSITORY)
+  console.log("Username2 ", username)
+  console.log("Repo2 ", repo)
 
   octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-    owner: core.getInput('username'),
-    repo: process.env.GITHUB_REPOSITORY,
+    owner: username,
+    repo: repo,
     path: core.getInput('path'),
     message: '(Automated) Update README.md',
     content: data,
