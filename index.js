@@ -33,8 +33,9 @@ ${core.getInput('footer')}
     const sha = getReadme.data.sha
     const currentContent = Buffer.from(getReadme.data.content, "base64").toString('utf8')
 
-    const newContent = currentContent.split("---")[1]
+    const newContent = currentContent.split("---")
 
+    console.log("currentContent ", currentContent)
     console.log("newContent ", newContent)
 
     const putReadme = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
