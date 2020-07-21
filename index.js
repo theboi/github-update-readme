@@ -2,22 +2,6 @@ const core = require("@actions/core");
 const { Octokit } = require('@octokit/core')
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
-const insert = (type) => {
-  switch (type) {
-    case "repoTable": return chunkArray(Array.from(recentRepos), reposPerRow).map((value) => {
-      return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
-|${value.map((value) => ` :-: |`)}
-|${value.map((value) => ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
-      )}\n\n`
-    }).toString().replace(/,/g, "")
-    case "header": return core.getInput('header')
-    case "subhead": return core.getInput('subhead')
-    case "footer": return core.getInput('footer')
-    default: return null
-  }
-  
-}
-
 (async () => {
   try {
     const repoCount = parseInt(core.getInput('repoCount'))
@@ -48,6 +32,22 @@ const insert = (type) => {
         recentRepos.add(activityRepo)
         if (recentRepos.size >= repoCount) break
       }
+    }
+
+    const insert = (type) => {
+      switch (type) {
+        case "repoTable": return chunkArray(Array.from(recentRepos), reposPerRow).map((value) => {
+          return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
+    |${value.map((value) => ` :-: |`)}
+    |${value.map((value) => ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
+          )}\n\n`
+        }).toString().replace(/,/g, "")
+        case "header": return core.getInput('header')
+        case "subhead": return core.getInput('subhead')
+        case "footer": return core.getInput('footer')
+        default: return null
+      }
+      
     }
 
     // DO NOT FORMAT `data` BELOW.
