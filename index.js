@@ -31,19 +31,21 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         let activityRepo = value.repo.name
         if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
         recentRepos.add(activityRepo)
-        await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-          owner: activityRepo.split("/")[0],
-          repo: activityRepo.split("/")[1],
-          path: 'DISPLAY.jpg',
-        }).then(() => {
-          recentReposHaveImage.push(true)
-        }).catch(e => {
-          recentReposHaveImage.push(false)
-        })
-        
         if (recentRepos.size >= repoCount) break
       }
     }
+
+    recentRepos.forEach(() => {
+      await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+        owner: activityRepo.split("/")[0],
+        repo: activityRepo.split("/")[1],
+        path: 'DISPLAY.jpg',
+      }).then(() => {
+        recentReposHaveImage.push(true)
+      }).catch(e => {
+        recentReposHaveImage.push(false)
+      })
+    })
 
     // DO NOT FORMAT `data` BELOW.
     const data = core.getInput("customReadmeFile").replace(/\${\w{0,}}/g, (match) => {
