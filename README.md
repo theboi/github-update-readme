@@ -53,13 +53,13 @@ Default: |
   ${footer}
 ```
 
-Note: `|` denotes a multiline block in YAML. Ensure you indent properly when setting this.
+Note: `|` denotes a multiline string block in YAML. Ensure you indent properly when setting this.
 
 ## Environment Inputs
 
 ### `GITHUB_TOKEN`
 
-**Required** Just use this: `${{ secrets.GITHUB_TOKEN }}`
+**Required** Set this to: `${{ secrets.GITHUB_TOKEN }}`
 
 ## Outputs
 
@@ -87,9 +87,9 @@ schedule:
   - cron: "*/10 * * * *"
 ```
 - This will now run and fetch repositories you were most recently active on, every 10 mins.
+- **Important** Add a `DISPLAY.jpg` to your repositories to show in the table.
 
 ## Note
 
 - Due to GitHub's API rate-limiting, this GitHub Action will, at most, only check your 1000 most recent activities.
-- This is also my first GitHub action so apoplogies if its pretty bad... 😓
-- Feel free to suggest improvements/submit a PR. Thanks!
+- This is also my first GitHub Action so feel free to suggest improvements/submit a PR. Thanks!

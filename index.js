@@ -18,7 +18,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     })
     const sha = getReadme.data.sha
 
-    let recentRepos = new Set()
+    let recentRepos = new Map()
     for (let i = 0; recentRepos.size < repoCount && i < 10; i++) {
       const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
         username: username,
@@ -29,7 +29,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       for (const value of getActivity.data) {
         let activityRepo = value.repo.name
         if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
-        recentRepos.add(activityRepo)
+        if (!recentRepos.has(activityRepo)) recentRepos.set(activityRepo, true)
         if (recentRepos.size >= repoCount) break
       }
     }
@@ -37,7 +37,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     // DO NOT FORMAT `data` BELOW.
     const data = core.getInput("customReadmeFile").replace(/\${\w{0,}}/g, (match) => {
       switch (match) {
-        case "${repoTable}": return chunkArray(Array.from(recentRepos), reposPerRow).map((value) => {
+        case "${repoTable}": return chunkArray(Array.from(recentRepos.keys()), reposPerRow).map((value) => {
           return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
 |${value.map(() => ` :-: |`)}
 |${value.map((value) => ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
@@ -60,7 +60,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       content: Buffer.from(data, "utf8").toString('base64'),
       sha: sha,
     }).then(() => {
-      core.setOutput("repositories", Array.from(recentRepos))
+      core.setOutput("repositories", Array.from(recentRepos.keys()))
     }).catch((e) => {
       console.error("Failed: ", e)
       core.setFailed("Failed: ", e.message)
