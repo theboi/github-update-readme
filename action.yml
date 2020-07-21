@@ -24,8 +24,23 @@ inputs:
   reposPerRow:
     description: 'Number of repositories to load per row.'
     required: false
-    default: '3'    
-  
+    default: '3'
+  customReadmeFile:
+    description: 'Customise the README.md file format without forking this repository.'
+    required: false
+    default: |
+      ## ${insert("header")}
+      
+      ${insert("subhead")}
+
+      ---
+      
+      ${insert("repoTable")}
+      
+      ---
+      
+      ${insert("footer")}
+
 outputs:
   repositories:
     description: 'Array of recent repositories put up on the README.'

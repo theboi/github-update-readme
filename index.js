@@ -51,19 +51,21 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     }
 
     // DO NOT FORMAT `data` BELOW.
-    const data = `
-## ${insert("header")}
+    const data = core.getInput("customReadmeFile")
+    
+//     `
+// ## ${insert("header")}
 
-${insert("subhead")}
+// ${insert("subhead")}
 
----
+// ---
 
-${insert("repoTable")}
+// ${insert("repoTable")}
 
----
+// ---
 
-${insert("footer")}
-`
+// ${insert("footer")}
+// `
 
     await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner: username,
