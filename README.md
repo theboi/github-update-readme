@@ -22,11 +22,11 @@ The footer of your README.md. Default `""`.
 
 Path of your README.md file. Default `"README.md"`.
 
-### `postCount`
+### `repoCount`
 
 Number of repositories to load. Default `"6"`.
 
-### `postsPerRow`
+### `reposPerRow`
 
 Number of repositories to load per row. Default `"3"`.
 

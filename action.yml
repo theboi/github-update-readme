@@ -17,11 +17,11 @@ inputs:
     description: 'Path of your README.md file.'
     required: false
     default: 'README.md'
-  postCount:
+  repoCount:
     description: 'Number of repositories to load.'
     required: false
     default: '6'
-  postsPerRow:
+  reposPerRow:
     description: 'Number of repositories to load per row.'
     required: false
     default: '3'

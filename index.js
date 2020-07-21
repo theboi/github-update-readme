@@ -4,8 +4,8 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 (async () => {
   try {
-    const postCount = parseInt(core.getInput('postCount'))
-    const postPerRow = parseInt(core.getInput('postsPerRow'))
+    const repoCount = parseInt(core.getInput('repoCount'))
+    const reposPerRow = parseInt(core.getInput('reposPerRow'))
     const username = process.env.GITHUB_REPOSITORY.split("/")[0]
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
     const getReadme = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
@@ -19,7 +19,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     const sha = getReadme.data.sha
 
     let recentRepos = new Set()
-    for (let i = 0; recentRepos.size < postCount && i < 10; i++) {
+    for (let i = 0; recentRepos.size < repoCount && i < 10; i++) {
       const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
         username: username,
       }).catch(e => {
@@ -30,7 +30,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         let activityRepo = value.repo.name
         if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
         recentRepos.add(activityRepo)
-        if (recentRepos.size >= postCount) break
+        if (recentRepos.size >= repoCount) break
       }
     }
 
@@ -42,9 +42,9 @@ ${core.getInput('subheader')}
 
 ---
 
-${chunkArray(Array.from(recentRepos), postPerRow).map((value) => {
+${chunkArray(Array.from(recentRepos), reposPerRow).map((value) => {
       return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
-| :-: | :-: | :-: |
+|${value.map((value) => ` :-: |`)}
 |${value.map((value) => ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
       )}\n\n`
     }).toString().replace(/,/g, "")}
