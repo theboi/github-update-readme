@@ -46,7 +46,9 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         case "${header}": return core.getInput('header')
         case "${subhead}": return core.getInput('subhead')
         case "${footer}": return core.getInput('footer')
-        default: return null
+        default:
+          console.error(`${match} is not recognised`)
+          return ""
       }
     })
 

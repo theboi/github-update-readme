@@ -37,9 +37,9 @@ Customise the README.md file format without forking this repository. Use these r
 - `header`
 - `subhead`
 - `footer`
-Default
+
 ```yaml
-default: |
+Default: |
   ## ${header}
       
   ${subhead}
@@ -52,6 +52,8 @@ default: |
       
   ${footer}
 ```
+
+Note: `|` denotes a multiline block in YAML. Ensure you indent properly when setting this.
 
 ## Environment Inputs
 

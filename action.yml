@@ -26,7 +26,7 @@ inputs:
     required: false
     default: '3'
   customReadmeFile:
-    description: 'Customise the README.md file format without forking this repository.'
+    description: "Customise the README.md file format without forking this repository. Read more on this repository's README.md"
     required: false
     default: |
       ## ${header}
