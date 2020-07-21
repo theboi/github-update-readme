@@ -31,15 +31,16 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         let activityRepo = value.repo.name
         if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
         recentRepos.add(activityRepo)
-        const recentRepoHasImage = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+        await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
           owner: activityRepo.split("/")[0],
           repo: activityRepo.split("/")[1],
           path: 'DISPLAY.jpg',
+        }).then(() => {
+          recentReposHaveImage.push(true)
         }).catch(e => {
-          console.error("Failed: ", e)
-          core.setFailed("Failed: ", e.message)
+          recentReposHaveImage.push(false)
         })
-        recentReposHaveImage.push(recentRepoHasImage.data.name)
+        
         if (recentRepos.size >= repoCount) break
       }
     }
@@ -51,7 +52,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
           console.log("recentRosveImage", recentReposHaveImage)
           return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
 |${value.map(() => ` :-: |`)}
-|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row*reposPerRow+col] ? `${username}/${repo}` : value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
+|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row*reposPerRow+col] ? value : `${username}/${repo}`}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
           )}\n\n`
         }).toString().replace(/,/g, "")
         case "${header}": return core.getInput('header')
