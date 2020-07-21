@@ -32,26 +32,25 @@ Number of repositories to load per row. Default `"3"`.
 
 ### `customReadmeFile`
 
-Customise the README.md file format without forking this repository. Use these reserved strings wrapped in `${` and `}` (JavaScript template literals) to reference certain content:
+Customise the README.md file format without forking this repository. Use these reserved strings wrapped in `${` and `}` (For instance, `${header}`) to reference certain content:
 - `repoTable`: Set of tables with most recent repository activity.
 - `header`
 - `subhead`
 - `footer`
 Default
 ```yaml
+default: |
+  ## ${header}
+      
+  ${subhead}
 
-## ${insert("header")}
-
-${insert("subhead")}
-
----
-
-${insert("repoTable")}
-
----
-
-${insert("footer")}
-
+  ---
+      
+  ${repoTable}
+      
+  ---
+      
+  ${footer}
 ```
 
 ## Environment Inputs

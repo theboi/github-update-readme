@@ -29,17 +29,17 @@ inputs:
     description: 'Customise the README.md file format without forking this repository.'
     required: false
     default: |
-      ## ${insert("header")}
+      ## ${header}
       
-      ${insert("subhead")}
+      ${subhead}
 
       ---
       
-      ${insert("repoTable")}
+      ${repoTable}
       
       ---
       
-      ${insert("footer")}
+      ${footer}
 
 outputs:
   repositories:
