@@ -39,7 +39,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
           console.error("Failed: ", e)
           core.setFailed("Failed: ", e.message)
         })
-        recentReposHaveImage.push(!recentRepoHasImage.data.name)
+        recentReposHaveImage.push(recentRepoHasImage.data.name)
         if (recentRepos.size >= repoCount) break
       }
     }
