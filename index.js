@@ -47,7 +47,6 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       })
     }
 
-    // DO NOT FORMAT `data` BELOW.
     const data = core.getInput("customReadmeFile").replace(/\${\w{0,}}/g, (match) => {
       switch (match) {
         case "${repoTable}": return chunkArray(Array.from(recentRepos), reposPerRow).map((value, row) => {

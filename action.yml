@@ -43,7 +43,7 @@ inputs:
 
 outputs:
   repositories:
-    description: 'Array of recent repositories put up on the README.'
+    description: 'Array of recent repositories to be displayed on your profile README.md.'
 
 runs:
   using: 'node12'

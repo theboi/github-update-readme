@@ -65,11 +65,11 @@ Note: `|` denotes a multiline string block in YAML. Ensure you indent properly w
 
 ### `repositories`
 
-Array of recent repositories put up on the README.
+Array of recent repositories to be displayed on your profile README.md.
 
 ## Example usage
 
-- Create a repository named your username, add a README.
+- Create a repository named your username, add a `README.md` file.
 - Create a workflow and paste this under `steps`:
 ```yaml
 - name: Update GitHub Profile README
