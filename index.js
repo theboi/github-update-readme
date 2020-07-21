@@ -33,7 +33,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         recentRepos.add(activityRepo)
         const recentRepoHasImage = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
           owner: activityRepo.split("/")[0],
-          repo: activityRepo.split("/")[0],
+          repo: activityRepo.split("/")[1],
           path: 'DISPLAY.jpg',
         }).catch(e => {
           console.error("Failed: ", e)
@@ -48,7 +48,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     const data = core.getInput("customReadmeFile").replace(/\${\w{0,}}/g, (match) => {
       switch (match) {
         case "${repoTable}": return chunkArray(Array.from(recentRepos), reposPerRow).map((value, row) => {
-          console.log("recentRposveImage", recentReposHaveImage)
+          console.log("recentRosveImage", recentReposHaveImage)
           return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
 |${value.map(() => ` :-: |`)}
 |${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row*reposPerRow+col] ? `${username}/${repo}` : value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
