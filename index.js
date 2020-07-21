@@ -51,7 +51,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     }
 
     // DO NOT FORMAT `data` BELOW.
-    const data = core.getInput("customReadmeFile")
+    const data = `${core.getInput("customReadmeFile")}`
     
 //     `
 // ## ${insert("header")}
