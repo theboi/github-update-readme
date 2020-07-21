@@ -35,10 +35,10 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       }
     }
 
-    for (const _ of recentRepos) {
+    for (const repo of recentRepos) {
       await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-        owner: activityRepo.split("/")[0],
-        repo: activityRepo.split("/")[1],
+        owner: repo.split("/")[0],
+        repo: repo.split("/")[1],
         path: 'DISPLAY.jpg',
       }).then(() => {
         recentReposHaveImage.push(true)
