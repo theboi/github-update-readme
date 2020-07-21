@@ -44,13 +44,13 @@ Array of recent repositories put up on the README.
 
 ## Example usage
 
-`uses: theboi/github-update-readme@master`
-`env:`
-`  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`
-`with:`
-  `header: "Hey, I'm Ryan! 👋"`
-  `subhead: "Currently a student in Singapore, passionate about creating all-things-tech to improve society."`
-  `footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"`
+uses: theboi/github-update-readme@master
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+with:
+  header: "Hey, I'm Ryan! 👋"
+  subhead: "Currently a student in Singapore, passionate about creating all-things-tech to improve society."
+  footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"
 
 ## Note
 
