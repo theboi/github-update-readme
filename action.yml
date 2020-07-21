@@ -1,5 +1,5 @@
 name: 'github-update-readme'
-description: 'Greet someone and record the time'
+description: 'Update your profile README.md to show your latest activity.'
 inputs:
   header:
     description: 'The header of your README.md.'

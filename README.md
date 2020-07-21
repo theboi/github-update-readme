@@ -4,7 +4,7 @@
 
 ## About
 
-This GitHub Action updates the README.md file of a repository to show latest activity from a GitHub user.
+This GitHub Action updates your profile README.md to show your latest activity.
 
 ## Inputs
 
