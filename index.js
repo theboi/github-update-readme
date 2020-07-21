@@ -22,7 +22,9 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         username: username,
       })
       for (const value of getActivity.data) {
-        recentRepos.add(value.repo.name)
+        let activityRepo = value.repo.name
+        if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
+        recentRepos.add(activityRepo)
         if (recentRepos.size >= postCount) break
       }
     }
