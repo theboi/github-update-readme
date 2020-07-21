@@ -35,7 +35,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       }
     }
 
-    recentRepos.forEach(() => {
+    for (const _ of recentRepos) {
       await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
         owner: activityRepo.split("/")[0],
         repo: activityRepo.split("/")[1],
@@ -45,7 +45,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       }).catch(e => {
         recentReposHaveImage.push(false)
       })
-    })
+    }
 
     // DO NOT FORMAT `data` BELOW.
     const data = core.getInput("customReadmeFile").replace(/\${\w{0,}}/g, (match) => {
