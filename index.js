@@ -34,7 +34,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         const recentRepoHasImage = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
           owner: username,
           repo: repo,
-          path: core.getInput('path'),
+          path: 'DISPLAY.jpg',
         }).catch(e => {
           console.error("Failed: ", e)
           core.setFailed("Failed: ", e.message)
