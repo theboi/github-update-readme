@@ -2,6 +2,8 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+![Example of profile README](https://raw.githubusercontent.com/theboi/github-update-readme/master/example.png)
+
 ## About
 
 This GitHub Action updates your profile README.md to show your latest activity.
@@ -10,15 +12,15 @@ This GitHub Action updates your profile README.md to show your latest activity.
 
 ### `header`
 
-**Required** The header of your README.md.
+**Required** The header of your README.md. Markdown supported.
 
 ### `subhead`
 
-The subheader of your README.md. Default `""`.
+The subheader of your README.md. Markdown supported. Default `""`.
 
 ### `footer`
 
-The footer of your README.md. Default `""`.
+The footer of your README.md. Markdown supported. Default `""`.
 
 ### `path`
 
@@ -34,7 +36,9 @@ Number of repositories to load per row. Default `"3"`.
 
 ### `customReadmeFile`
 
-Customise the README.md file format without forking this repository. Use these reserved strings wrapped in `${` and `}` (For instance, `${header}`) to reference certain content:
+Customise the README.md file format without forking this repository. Markdown supported.
+
+Use these reserved strings wrapped in `${` and `}` (For instance, `${header}`) to reference certain content:
 - `repoTable`: Set of tables with most recent repository activity.
 - `header`
 - `subhead`

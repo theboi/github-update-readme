@@ -2,15 +2,15 @@ name: 'github-update-readme'
 description: 'Update your profile README.md to show your latest activity.'
 inputs:
   header:
-    description: 'The header of your README.md.'
+    description: 'The header of your README.md. Markdown supported.'
     required: true
     default: ''
   subhead:
-    description: 'The subheader of your README.md.'
+    description: 'The subheader of your README.md. Markdown supported.'
     required: false
     default: ''
   footer:
-    description: 'The footer of your README.md.'
+    description: 'The footer of your README.md. Markdown supported.'
     required: false
     default: ''
   path:
@@ -26,7 +26,7 @@ inputs:
     required: false
     default: '3'
   customReadmeFile:
-    description: "Customise the README.md file format without forking this repository. Read more on this repository's README.md"
+    description: "Customise the README.md file format without forking this repository. Read more on this repository's README.md. Markdown supported."
     required: false
     default: |
       ## ${header}
