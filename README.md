@@ -34,6 +34,10 @@ Number of repositories to load. Default `"6"`.
 
 Number of repositories to load per row. Default `"3"`.
 
+### `imageSize`
+
+Length (in pixels) of each side of the square image. Default `"150"`
+
 ### `customReadmeFile`
 
 Customise the README.md file format without forking this repository. Markdown supported.

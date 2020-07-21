@@ -4,8 +4,10 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 (async () => {
   try {
-    const repoCount = parseInt(core.getInput('repoCount'))
-    const reposPerRow = parseInt(core.getInput('reposPerRow'))
+    const REPO_COUNT = parseInt(core.getInput('repoCount'))
+    const REPOS_PER_ROW = parseInt(core.getInput('reposPerRow'))
+    const IMAGE_SIZE = parseInt(core.getInput('imageSize'))
+
     const username = process.env.GITHUB_REPOSITORY.split("/")[0]
     const repo = process.env.GITHUB_REPOSITORY.split("/")[1]
     const getReadme = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
@@ -20,7 +22,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
     let recentReposHaveImage = []
     let recentRepos = new Set()
-    for (let i = 0; recentRepos.size < repoCount && i < 10; i++) {
+    for (let i = 0; recentRepos.size < REPO_COUNT && i < 10; i++) {
       const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
         username: username,
       }).catch(e => {
@@ -31,7 +33,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         let activityRepo = value.repo.name
         if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
         recentRepos.add(activityRepo)
-        if (recentRepos.size >= repoCount) break
+        if (recentRepos.size >= REPO_COUNT) break
       }
     }
 
@@ -49,11 +51,11 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
     const data = core.getInput("customReadmeFile").replace(/\${\w{0,}}/g, (match) => {
       switch (match) {
-        case "${repoTable}": return chunkArray(Array.from(recentRepos), reposPerRow).map((value, row) => {
+        case "${repoTable}": return chunkArray(Array.from(recentRepos), REPOS_PER_ROW).map((value, row) => {
           console.log("recentRosveImage", recentReposHaveImage)
           return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
 |${value.map(() => ` :-: |`)}
-|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row*reposPerRow+col] ? value : `${username}/${repo}`}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
+|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row*REPOS_PER_ROW+col] ? value : `${username}/${repo}`}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="${IMAGE_SIZE}" height="${IMAGE_SIZE}"></a> |`
           )}\n\n`
         }).toString().replace(/,/g, "")
         case "${header}": return core.getInput('header')
