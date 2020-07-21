@@ -1,5 +1,4 @@
 const core = require("@actions/core");
-const github = require("@actions/github");
 const { Octokit } = require('@octokit/core')
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
@@ -13,6 +12,9 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       owner: username,
       repo: repo,
       path: core.getInput('path'),
+    }).catch(e => {
+      console.error("Failed: ", e)
+      core.setFailed("Failed: ", e.message)
     })
     const sha = getReadme.data.sha
 
@@ -20,6 +22,9 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     for (let i = 0; recentRepos.size < postCount && i < 10; i++) {
       const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
         username: username,
+      }).catch(e => {
+        console.error("Failed: ", e)
+        core.setFailed("Failed: ", e.message)
       })
       for (const value of getActivity.data) {
         let activityRepo = value.repo.name
@@ -60,12 +65,16 @@ ${core.getInput('footer')}
       message: '(Automated) Update README.md',
       content: Buffer.from(data, "utf8").toString('base64'),
       sha: sha,
-      
+    }).then(() => {
+      core.setOutput("repositories", Array.from(recentRepos))
+    }).catch((e) => {
+      console.error("Failed: ", e)
+      core.setFailed("Failed: ", e.message)
     })
 
   } catch (e) {
-    console.error(e)
-    core.setFailed(e.message)
+    console.error("Failed: ", e)
+    core.setFailed("Failed: ", e.message)
   }
 })()
 

@@ -1,12 +1,12 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
-  title:
-    description: 'The title of your README.md.'
+  header:
+    description: 'The header of your README.md.'
     required: true
     default: ''
-  subtitle:
-    description: 'The subtitle of your README.md.'
+  subhead:
+    description: 'The subheader of your README.md.'
     required: false
     default: ''
   footer:
@@ -27,8 +27,9 @@ inputs:
     default: '3'
   
 outputs:
-  string:
-    description: 'The markdown string.'
+  repositories:
+    description: 'Array of recent repositories put up on the README.'
+
 runs:
   using: 'node12'
   main: 'index.js'
