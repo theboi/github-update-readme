@@ -39,7 +39,8 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
           console.error("Failed: ", e)
           core.setFailed("Failed: ", e.message)
         })
-        recentReposHaveImage.push(!recentRepoHasImage.name)
+        console.log(recentRepoHasImage)
+        recentReposHaveImage.push(recentRepoHasImage.name)
         if (recentRepos.size >= repoCount) break
       }
     }
@@ -48,10 +49,10 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     const data = core.getInput("customReadmeFile").replace(/\${\w{0,}}/g, (match) => {
       switch (match) {
         case "${repoTable}": return chunkArray(Array.from(recentRepos), reposPerRow).map((value, row) => {
-          console.log("recentReposHveImage", recentReposHaveImage)
+          console.log("recentReposveImage", recentReposHaveImage)
           return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
 |${value.map(() => ` :-: |`)}
-|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row*reposPerRow+col] ? `${username}/${repo}` : value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
+|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${!recentReposHaveImage[row*reposPerRow+col] ? `${username}/${repo}` : value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
           )}\n\n`
         }).toString().replace(/,/g, "")
         case "${header}": return core.getInput('header')
