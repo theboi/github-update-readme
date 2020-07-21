@@ -45,6 +45,10 @@ outputs:
   repositories:
     description: 'Array of recent repositories to be displayed on your profile README.md.'
 
+branding:
+  icon: activity
+  color: green
+
 runs:
   using: 'node12'
   main: 'index.js'
