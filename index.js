@@ -60,10 +60,7 @@ ${core.getInput('footer')}
       message: '(Automated) Update README.md',
       content: Buffer.from(data, "utf8").toString('base64'),
       sha: sha,
-      committer: {
-        name: "Ryan The",
-        email: "ryan.the.2006@gmail.com"
-      }
+      
     })
 
   } catch (e) {
