@@ -1,4 +1,4 @@
-name: 'Hello World'
+name: 'github-update-readme'
 description: 'Greet someone and record the time'
 inputs:
   header:
