@@ -32,8 +32,8 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
         recentRepos.add(activityRepo)
         const recentRepoHasImage = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-          owner: username,
-          repo: repo,
+          owner: activityRepo.split("/")[0],
+          repo: activityRepo.split("/")[0],
           path: 'DISPLAY.jpg',
         }).catch(e => {
           console.error("Failed: ", e)
