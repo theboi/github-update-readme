@@ -36,23 +36,20 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
     // DO NOT FORMAT `data` BELOW.
     const data = `
-## ${core.getInput('title')}
+## ${core.getInput('header')}
 
-${core.getInput('subtitle')}
+${core.getInput('subheader')}
 
 ---
 
 ${chunkArray(Array.from(recentRepos), postPerRow).map((value) => {
-      return `| ${value.map(value => ` **[${value}](https://github.com/${value})** |`)}
+      return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
 | :-: | :-: | :-: |
-| ${value.map((value) => {
-        return ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
-      })}\n\n`
+|${value.map((value) => ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
+      )}\n\n`
     }).toString().replace(/,/g, "")}
 
 ---
-
-[//]: # (BREAK)
 
 ${core.getInput('footer')}
 `

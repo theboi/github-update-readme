@@ -44,13 +44,24 @@ Array of recent repositories put up on the README.
 
 ## Example usage
 
-uses: theboi/github-update-readme@master
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-with:
-  header: "Hey, I'm Ryan! 👋"
-  subhead: "Currently a student in Singapore, passionate about creating all-things-tech to improve society."
-  footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"
+- Create a repository named your username, add a README.
+- Create a workflow and paste this under `steps`:
+```yaml
+- name: Update GitHub Profile README
+  uses: theboi/github-update-readme@v1.0
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  with:
+    header: "Hey, I'm Ryan! 👋"
+    subhead: "Currently a student in Singapore, passionate about creating all-things-tech to improve society."
+    footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"
+```
+- Maybe you want this to run every 10 mins, paste this under `on`:
+```yaml
+schedule:
+  - cron: "*/10 * * * *"
+```
+- This will now run and fetch repositories you were most recently active on, every 10 mins.
 
 ## Note
 
