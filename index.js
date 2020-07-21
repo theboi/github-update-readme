@@ -42,13 +42,12 @@ ${core.getInput('subtitle')}
 
 ---
 
-||||
-| :-: | :-: | :-: |
 ${chunkArray(Array.from(recentRepos), postPerRow).map((value) => {
       return `| ${value.map(value => ` **[${value}](https://github.com/${value})** |`)}
-  | ${value.map((value) => {
+| :-: | :-: | :-: |
+| ${value.map((value) => {
         return ` <a href="https://github.com/${value}"><img src="https://github.com/${value}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="150" height="150"></a> |`
-      })}\n`
+      })}\n\n`
     }).toString().replace(/,/g, "")}
 
 ---
