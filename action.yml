@@ -24,7 +24,7 @@ inputs:
   reposPerRow:
     description: 'Number of repositories to load per row.'
     required: false
-    default: '3'
+    default: '3'    
   
 outputs:
   repositories:

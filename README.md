@@ -30,6 +30,14 @@ Number of repositories to load. Default `"6"`.
 
 Number of repositories to load per row. Default `"3"`.
 
+### `customReadmeFileFormat`
+
+Customise the README.md file format without forking this repository. Use these reserved strings wrapped in `${` and `}` (JavaScript template literals) to reference certain content:
+- `repoTable`: Set of tables with most recent repository activity.
+- `header`
+- `subhead`
+- `footer`
+
 ## Environment Inputs
 
 ### `GITHUB_TOKEN`
@@ -56,7 +64,7 @@ Array of recent repositories put up on the README.
     subhead: "Currently a student in Singapore, passionate about creating all-things-tech to improve society."
     footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"
 ```
-- Maybe you want this to run every 10 mins, paste this under `on`:
+- You might want to schedule this to run every 10 mins, paste this under `on`:
 ```yaml
 schedule:
   - cron: "*/10 * * * *"
