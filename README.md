@@ -93,7 +93,7 @@ schedule:
   - cron: "*/10 * * * *"
 ```
 - This will now run and fetch repositories you were most recently active on, every 10 mins.
-- **Important** Add a `DISPLAY.jpg` to your repositories to show in the table.
+- **Important** Add a `DISPLAY.jpg` to your repositories (including username/username) to show in the table. If image does not exist, will default to `DISPLAY.jpg` on username/username.
 
 ## Note
 
