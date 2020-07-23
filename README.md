@@ -79,6 +79,7 @@ Array of recent repositories to be displayed on your profile README.md.
 
 ## Example usage
 
+- Article on Medium: https://medium.com/@theboi/how-to-dynamically-update-your-github-profile-readme-using-github-actions-684be5db9932
 - Create a repository named your username, add a `README.md` file.
 - Create a workflow and paste this under `steps`:
 ```yaml

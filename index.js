@@ -52,13 +52,6 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
     }
 
     const data = core.getInput("customReadmeFile").replace(/\${\w{0,}}/g, (match) => {
-      console.log(chunkArray(Array.from(recentRepos), REPOS_PER_ROW).map((value, row) => {
-        return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
-|${value.map(() => ` :-: |`)}
-|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row * REPOS_PER_ROW + col] ? value : `${username}/${repo}`}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="${IMAGE_SIZE}" height="${IMAGE_SIZE}"></a> |`
-        )}\n\n`
-      }).join(''))
-
       switch (match) {
         case "${repoTable}": return chunkArray(Array.from(recentRepos), REPOS_PER_ROW).map((value, row) => {
           return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
