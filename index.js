@@ -58,7 +58,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 |${value.map(() => ` :-: |`)}
 |${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row * REPOS_PER_ROW + col] ? value : `${username}/${repo}`}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="${IMAGE_SIZE}" height="${IMAGE_SIZE}"></a> |`
           )}\n\n`
-        }).toString().replace(/,/g, "")
+        }).join("")
         case "${header}": return core.getInput('header')
         case "${subhead}": return core.getInput('subhead')
         case "${footer}": return core.getInput('footer')
