@@ -30,9 +30,11 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         core.setFailed("Failed: ", e.message)
       })
       for (const value of getActivity.data) {
-        let activityRepo = value.repo.name
-        if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
-        recentRepos.add(activityRepo)
+        if (value.type !== "WatchEvent") {
+          let activityRepo = value.repo.name
+          if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
+          recentRepos.add(activityRepo)
+        }
         if (recentRepos.size >= REPO_COUNT) break
       }
     }
@@ -54,7 +56,7 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         case "${repoTable}": return chunkArray(Array.from(recentRepos), REPOS_PER_ROW).map((value, row) => {
           return `|${value.map(value => ` [${value}](https://github.com/${value}) |`)}
 |${value.map(() => ` :-: |`)}
-|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row*REPOS_PER_ROW+col] ? value : `${username}/${repo}`}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="${IMAGE_SIZE}" height="${IMAGE_SIZE}"></a> |`
+|${value.map((value, col) => ` <a href="https://github.com/${value}"><img src="https://github.com/${recentReposHaveImage[row * REPOS_PER_ROW + col] ? value : `${username}/${repo}`}/raw/master/DISPLAY.jpg" alt="${value}" title="${value}" width="${IMAGE_SIZE}" height="${IMAGE_SIZE}"></a> |`
           )}\n\n`
         }).toString().replace(/,/g, "")
         case "${header}": return core.getInput('header')
