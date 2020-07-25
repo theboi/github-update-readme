@@ -33,6 +33,10 @@ inputs:
     description: "Types of event to exclude from the recent activity table. Read more on this repository's README.md."
     required: false
     default: '[]'
+  excludeRepo:
+    description: "Repositories to exclude from the recent activity table. Read more on this repository's README.md."
+    required: false
+    default: '[]'
   customReadmeFile:
     description: "Customise the README.md file format without forking this repository. Read more on this repository's README.md. Markdown supported."
     required: false

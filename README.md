@@ -42,6 +42,10 @@ Length (in pixels) of each side of the square image. Default `"150"`.
 
 Types of event to exclude from the recent activity table in a **JSON array**. Recent events, such as `"PushEvent"` or `"ForkEvent"`, can be found at https://api.github.com/users/{username}/events, replacing `username` with your username. Example input would be `'["WatchEvent", "ForkEvent"]'`. Default `"[]"`.
 
+### `excludeRepo`
+
+Repositories to exclude from the recent activity table in a **JSON array**. Example input would be `'["theboi/theboi", "username/repo"]'`. Default `"[]"`.
+
 ### `customReadmeFile`
 
 Customise the README.md file format without forking this repository. Markdown supported.
