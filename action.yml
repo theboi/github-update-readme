@@ -30,7 +30,7 @@ inputs:
     required: false
     default: '200'
   excludeActivity:
-    description: 'Types of event to exclude from the recent activity table. '
+    description: "Types of event to exclude from the recent activity table. Read more on this repository's README.md."
     required: false
     default: '[]'
   customReadmeFile:
