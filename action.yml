@@ -29,6 +29,10 @@ inputs:
     description: 'Length (in pixels) of each side of the square image.'
     required: false
     default: '200'
+  excludeActivity:
+    description: 'Types of event to exclude from the recent activity table. '
+    required: false
+    default: '[]'
   customReadmeFile:
     description: "Customise the README.md file format without forking this repository. Read more on this repository's README.md. Markdown supported."
     required: false

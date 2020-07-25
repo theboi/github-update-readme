@@ -36,7 +36,11 @@ Number of repositories to load per row. Default `"3"`.
 
 ### `imageSize`
 
-Length (in pixels) of each side of the square image. Default `"150"`
+Length (in pixels) of each side of the square image. Default `"150"`.
+
+### `excludeActivity`
+
+Types of event to exclude from the recent activity table in a **JSON array**. Recent events, such as `"PushEvent"`, `"ForkEvent"` can be found at https://api.github.com/users/{username}/events, replacing `username` with your username. Example input would be `"["WatchEvent", "ForkEvent"]"`. Default `"[]"`.
 
 ### `customReadmeFile`
 
