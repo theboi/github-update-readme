@@ -31,7 +31,10 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
         console.error("Failed: ", e)
         core.setFailed("Failed: ", e.message)
       })
+      console.log(getActivity)
+      console.log(getActivity.data)
       for (const value of getActivity.data) {
+        console.log(value)
         let activityRepo = value.repo.name
         if (value.type === "ForkEvent") activityRepo = value.payload.forkee.full_name
         if (!JSON.parse(core.getInput('excludeActivity')).includes(value.type) && !JSON.parse(core.getInput('excludeRepo')).includes(activityRepo)) {
