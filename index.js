@@ -22,8 +22,10 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
     let recentReposHaveImage = []
     let recentRepos = new Set()
+    // const lastPage = (await octokit.request(`GET /users/{username}/events/public?per_page=100&page=last`)).headers
     for (let i = 0; recentRepos.size < REPO_COUNT && i < 10; i++) {
-      const getActivity = await octokit.request(`GET /users/{username}/events?per_page=100&page=${i}`, {
+      console.log(i)
+      const getActivity = await octokit.request(`GET /users/{username}/events/public?per_page=100&page=${i}`, {
         username: username,
       }).catch(e => {
         console.error("Failed: ", e)
