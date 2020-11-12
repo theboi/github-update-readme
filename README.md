@@ -26,6 +26,10 @@ The footer of your README.md. Markdown supported. Default `""`.
 
 Path of your README.md file. Default `"README.md"`.
 
+### `ref`
+
+Override the default branch/tag ref. Default `"master"`.
+
 ### `repoCount`
 
 Number of repositories to load. Default `"6"`.
